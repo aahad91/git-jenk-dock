@@ -8,7 +8,7 @@
 - Docker (Installed)
 - Docker-compose (Installed)
 
-#### Installation
+### Installation
 
 ```bash
 sudo docker-compose -f docker-compose.yaml up
@@ -29,11 +29,11 @@ Browse to following Urls to verify successfull installation of Gitlab and Jenkin
 
 - Login with the newly created password
 
-![root-login](/Users/ahad/Documents/job/git-jenk-dock/images/git-config-2.png)
+![root-login](images/git-config-2.png)
 
 - Gitlab Homepage
 
-![git-home](/Users/ahad/Documents/job/git-jenk-dock/images/git-homepage.png)
+![git-home](images/git-homepage.png)
 
 #### Jenkins Configuration
 
@@ -43,19 +43,19 @@ Browse to following Urls to verify successfull installation of Gitlab and Jenkin
 sudo docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 ```
 
-![jenkins-conf](/Users/ahad/Documents/job/git-jenk-dock/images/jenkins-config-1.png)
+![jenkins-conf](images/jenkins-config-1.png)
 
 - Select the "Install suggested plugins".
 
-![jenkins-plugins](/Users/ahad/Documents/job/git-jenk-dock/images/jenkins-config-2.png)
+![jenkins-plugins](images/jenkins-config-2.png)
 
 - Wait till all the plugins are installed.
 
-![plugins-install](/Users/ahad/Documents/job/git-jenk-dock/images/jenkins-config-3.png)
+![plugins-install](images/jenkins-config-3.png)
 
 - Set Admin user and password.
 
-![user-create](/Users/ahad/Documents/job/git-jenk-dock/images/jenkins-config-4.png)
+![user-create](images/jenkins-config-4.png)
 
 - Set the default url for jenkins for 3rd party access. For-example integration with gitlab and email configuration.
 
@@ -63,8 +63,8 @@ sudo docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 
 - All set!
 
-![jenkins-installed](/Users/ahad/Documents/job/git-jenk-dock/images/jenkins-config-6.png)
+![jenkins-installed](images/jenkins-config-6.png)
 
 - Jenkins Homepage
 
-![jenkins-homepage](/Users/ahad/Documents/job/git-jenk-dock/images/jenkins-config-7.png)
+![jenkins-homepage](images/jenkins-config-7.png)
