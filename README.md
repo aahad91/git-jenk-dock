@@ -59,7 +59,7 @@ sudo docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 
 - Set the default url for jenkins for 3rd party access. For-example integration with gitlab and email configuration.
 
-![instance-conf](/Users/ahad/Documents/job/git-jenk-dock/images/jenkins-config-5.png)
+![instance-conf](images/jenkins-config-5.png)
 
 - All set!
 
