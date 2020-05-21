@@ -12,6 +12,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Bringing up the docker-compose stack UP
-      run: docker-compose -f docker-compose.yaml up
+      run: docker-compose -f docker-compose.yaml up -d
     - name: Check the status of stack
       run: docker ps -a
