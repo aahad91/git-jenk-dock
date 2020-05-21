@@ -7,6 +7,10 @@ services:
       - "8081:80"
       - "24:22"     #Default set it to "22:22", changed to test with github actions
       - "443:443"
+    volumes:
+      - 'gitlab_config:/etc/gitlab'
+      - 'gitlab_logs:/var/log/gitlab'
+      - 'gitlab_data:/var/opt/gitlab'
     tty: true
 
   jenkins:
@@ -17,9 +21,12 @@ services:
       - "5000:5000"
       - "25:22"     ##Default set it to "22:22", changed to test with github actions
     volumes:
-      - 'jenkins_home:/var/jenkins_home'
+      - 'jenkins_data:/var/jenkins_home'
       - '/var/run/docker.sock:/var/run/docker.sock'
     tty: true
 
 volumes:
-  jenkins_home:
+  jenkins_data:
+  gitlab_data:
+  gitlab_config:
+  gitlab_logs:
