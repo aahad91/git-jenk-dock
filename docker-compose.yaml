@@ -1,0 +1,18 @@
+version: '3'
+services:
+  gitlab:
+    container_name: gitlab
+    image: gitlab/gitlab-ce:latest
+    ports:
+      - "8081:80"
+      - "22:22"
+      - "443:443"
+    tty: true
+
+  jenkins:
+    container_name: jenkins
+    image: jenkins:latest
+    ports:
+      - "8095:8080"
+      - "5000:5000"
+    tty: true
