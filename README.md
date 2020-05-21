@@ -1,3 +1,4 @@
+![Docker-compose CI](https://github.com/aahad91/git-jenk-dock/workflows/Docker-compose%20CI/badge.svg?branch=master)
 # git-jenk-dock
 ## Docker-based solution for GitLab and Jenkins
 
