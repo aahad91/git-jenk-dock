@@ -46,7 +46,7 @@ sudo docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 
 ![jenkins-conf](images/jenkins-config-1.png)
 
-- Select the "Install suggested plugins".
+- Select the "Select plugins to Install" and enable gitlab.
 
 ![jenkins-plugins](images/jenkins-config-2.png)
 
@@ -69,3 +69,22 @@ sudo docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 - Jenkins Homepage
 
 ![jenkins-homepage](images/jenkins-config-7.png)
+
+### Integration
+
+#### Gitlab
+
+- Generate authentication token. *Navigate to **Settings** > **Access Token***. Do as follow:
+
+![git-token](images/git-inti-1.png)
+
+#### Jenkins
+
+- Add connection to Gitlab from jenkins. *Navigate to **Manage Jenkins** > **Configure System***. Search for Gitlab tab. Add Name, Url of gitlab, token and test the connection as follow.
+
+![add-conn](images/jenkins-inti-1.png)
+
+![add-token](images/jenkins-inti-2.png)
+
+------
+
