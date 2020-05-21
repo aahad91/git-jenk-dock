@@ -5,7 +5,7 @@ services:
     image: gitlab/gitlab-ce:latest
     ports:
       - "8081:80"
-      - "22:22"
+      - "24:22"     #Default set it to "22:22", changed to test with github actions
       - "443:443"
     tty: true
 
@@ -15,6 +15,7 @@ services:
     ports:
       - "8095:8080"
       - "5000:5000"
+      - "25:22"     ##Default set it to "22:22", changed to test with github actions
     volumes:
       - 'jenkins_home:/var/jenkins_home'
       - '/var/run/docker.sock:/var/run/docker.sock'
