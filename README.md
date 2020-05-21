@@ -25,7 +25,7 @@ Browse to following Urls to verify successfull installation of Gitlab and Jenkin
 
 - After browsing to above mentioned url of gitlab, initial registration page will show up. Set the new password for root user of Gitlab.
 
-![root-password-set](/Users/ahad/Documents/job/git-jenk-dock/images/git-config-1.png)
+![root-password-set](images/git-config-1.png)
 
 - Login with the newly created password
 
