@@ -1,0 +1,17 @@
+name: Docker-compose CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Bringing up the docker-compose stack UP
+      run: docker-compose -f docker-compose.yaml up
+    - name: Check the status of stack
+      run: docker ps -a
