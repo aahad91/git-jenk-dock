@@ -20,7 +20,7 @@ sudo docker-compose -f docker-compose.yaml up
 Browse to following Urls to verify successfull installation of Gitlab and Jenkins
 
 - **Gitlab:** http://localhost:8081
-- **Jenkins:** http://localhost:8081
+- **Jenkins:** http://localhost:8095
 
 #### Gitlab Configuration
 
@@ -87,4 +87,3 @@ sudo docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 ![add-token](images/jenkins-inti-2.png)
 
 ------
-
