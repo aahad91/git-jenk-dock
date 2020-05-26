@@ -13,11 +13,14 @@
 
 ```bash
 sudo docker-compose -f docker-compose.yaml up
+
+#New terminal
+sudo docker exec -it -u root jenkins chmod 777 /var/run/docker.sock
 ```
 
 #### Urls
 
-Browse to following Urls to verify successfull installation of Gitlab and Jenkins
+Browse to following Urls to verify successful installation of Gitlab and Jenkins
 
 - **Gitlab:** http://localhost:8081
 - **Jenkins:** http://localhost:8095
