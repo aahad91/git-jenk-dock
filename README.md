@@ -2,7 +2,7 @@
 # git-jenk-dock
 ## Docker-based solution for GitLab and Jenkins
 
-### Documentation for Installation and Integration
+### Documentation for Installation, Integration and Pipeline Testing
 
 #### Requirement
 
@@ -18,7 +18,7 @@ sudo docker-compose -f docker-compose.yaml up
 sudo docker exec -it -u root jenkins chmod 777 /var/run/docker.sock
 ```
 
-#### Urls
+#### URLs
 
 Browse to following Urls to verify successful installation of Gitlab and Jenkins
 
@@ -75,6 +75,8 @@ sudo docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 
 ### Integration
 
+Sample [Jenkinsfile](https://github.com/aahad91/git-jenk-dock/blob/master/Jenkinsfile) for pipeline testing.
+
 #### Gitlab
 
 - Generate authentication token. *Navigate to **Settings** > **Access Token***. Do as follow:
@@ -88,5 +90,35 @@ sudo docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 ![add-conn](images/jenkins-inti-1.png)
 
 ![add-token](images/jenkins-inti-2.png)
+
+### Test Pipeline
+
+#### Gitlab
+
+- Click on "Create a Project".
+
+![git-pipline1](images/git-pipeline-1.png)
+
+- Click on "Import Project", after that "Repo by URL" and paste the repo: **https://github.com/aahad91/git-jenk-dock.git**. Set project to public and finally click on Create project.
+
+![git-add-project](images/git-pipeline-2.png)
+
+#### Jenkins
+
+- From Home page click on "New Item". Add the name for pipeline and select pipeline.
+
+![create-pipeline](images/jenkins-pipeline-1.png)
+
+- In pipeline section, select "Pipeline script from SCM" and set SCM to "Git". Afterwards add URL of the git repo.
+
+![pipeline-config](images/jenkins-pipeline-2.png)
+
+- Click on Build now to test the pipeline.
+
+![run-pipeline](images/jenkins-pipeline-3.png)
+
+- Verfiy the pipeline is executed successfully.
+
+![pipeline-test](images/jenkins-pipeline-4.png)
 
 ------
