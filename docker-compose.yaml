@@ -24,7 +24,7 @@ services:
     volumes:
       - 'jenkins_data:/var/jenkins_home'
       - '/var/run/docker.sock:/var/run/docker.sock'
-      - '/usr/local/bin/docker:/usr/bin/docker'     #/usr/local/bin/docker <- which docker
+      - '/usr/bin/docker:/usr/bin/docker'     #/usr/local/bin/docker for MacOS and /usr/bin/docker for Ubuntu <- which docker
     tty: true
 
 volumes:
