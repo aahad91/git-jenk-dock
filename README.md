@@ -1,6 +1,6 @@
 ![Docker-compose CI](https://github.com/aahad91/git-jenk-dock/workflows/Docker-compose%20CI/badge.svg?branch=master)
 # git-jenk-dock
-## Docker-based solution for GitLab and Jenkins
+## Docker-based solution for GitLab, GitLab Runner and Jenkins
 
 ### Documentation for Installation, Integration and Pipeline Testing
 
@@ -121,4 +121,27 @@ Sample [Jenkinsfile](https://github.com/aahad91/git-jenk-dock/blob/master/Jenkin
 
 ![pipeline-test](images/jenkins-pipeline-4.png)
 
+### Gitlab Runner Integration
+
+#### Gitlab
+
+- Navigate to ***Admin Area*** > ***Runners*** and copy the ***Registration Token***.
+
+![gitlab-runner1](images/gitlab-runner-1.png)
+
+#### Gitlab Runner
+
+```bash
+# Command to register runner with gitlab
+gitlab-runner register -n --url http://<gitlab-ip>:80/ --registration-token {token from gitlab} --clone-url http://<gitlab-ip>:80/ --executor docker --docker-image "docker:latest" --docker-privileged
+
+# Execute
+sudo docker exec -it gitlab-runner gitlab-runner register -n --url http://172.22.0.3:80/ --registration-token F8BoGetFnszYx91FT2ro --clone-url http://172.22.0.3:80/ --executor docker --docker-image "docker:latest" --docker-privileged
+```
+
+- Verify the added runner.
+
+![gitlab-runner2](images/gitlab-runner-2.png)
+
 ------
+
