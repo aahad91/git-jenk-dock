@@ -25,6 +25,16 @@ services:
       - 'jenkins_data:/var/jenkins_home'
       - '/var/run/docker.sock:/var/run/docker.sock'
       - '/usr/bin/docker:/usr/bin/docker'     #/usr/local/bin/docker for MacOS and /usr/bin/docker for Ubuntu <- which docker
+      #- '/usr/local/bin/docker:/usr/local/bin/docker'
+    tty: true
+
+  gitlab-runner:
+    container_name: gitlab-runner
+    image: gitlab/gitlab-runner
+    privileged: true
+    volumes: 
+      - 'gitlab_runner_config:/etc/gitlab-runner'
+      - '/var/run/docker.sock:/var/run/docker.sock'
     tty: true
 
 volumes:
@@ -32,3 +42,6 @@ volumes:
   gitlab_data:
   gitlab_config:
   gitlab_logs:
+  gitlab_runner_config:
+
+#gitlab-runner register -n --url http://172.22.0.3:80/ --registration-token F8BoGetFnszYx91FT2ro --clone-url http://172.22.0.3:80/ --executor docker --docker-image "docker:latest" --docker-privileged
