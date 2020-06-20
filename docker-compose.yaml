@@ -39,7 +39,7 @@ services:
 
   sonarqube:
     container_name: sonarqube
-    build: sonarqube-plugin/
+    image: bitnami/sonarqube
     ports: 
       - "9000:9000"
     volumes: 
