@@ -37,11 +37,42 @@ services:
       - '/var/run/docker.sock:/var/run/docker.sock'
     tty: true
 
+  sonarqube:
+    container_name: sonarqube
+    build: sonarqube-plugin/
+    ports: 
+      - "9000:9000"
+    volumes: 
+      - 'sonarqube_data:/bitnami'
+    depends_on: 
+      - postgresql
+    environment: 
+      - SONARQUBE_DATABASE_USER=sonarqube
+      - SONARQUBE_DATABASE_NAME=sonarqube
+      - SONARQUBE_DATABASE_PASSWORD=sonarqube1234
+      - ALLOW_EMPTY_PASSWORD=yes
+      - SONARQUBE_USERNAME=admin
+      - SONARQUBE_PASSWORD=admin
+      - SONARQUBE_PORT_NUMBER=9000
+    tty: true
+
+  postgresql:
+    container_name: postgresql
+    image: bitnami/postgresql
+    volumes: 
+      - 'postgresql_data:/bitnami'
+    environment: 
+      - ALLOW_EMPTY_PASSWORD=yes
+      - POSTGRESQL_USER=sonarqube
+      - POSTGRESQL_DATABASE=sonarqube
+      - POSTGRESQL_PASSWORD=sonarqube1234
+    tty: true
+
 volumes:
   jenkins_data:
   gitlab_data:
   gitlab_config:
   gitlab_logs:
   gitlab_runner_config:
-
-#gitlab-runner register -n --url http://172.22.0.3:80/ --registration-token F8BoGetFnszYx91FT2ro --clone-url http://172.22.0.3:80/ --executor docker --docker-image "docker:latest" --docker-privileged
+  sonarqube_data:
+  postgresql_data:
