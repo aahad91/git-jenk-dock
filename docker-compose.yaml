@@ -39,34 +39,40 @@ services:
 
   sonarqube:
     container_name: sonarqube
-    image: bitnami/sonarqube
+    image: sonarqube
     ports: 
       - "9000:9000"
     volumes: 
-      - 'sonarqube_data:/bitnami'
+      - 'sonarqube_data:/opt/sonarqube'
     depends_on: 
       - postgresql
     environment: 
-      - SONARQUBE_DATABASE_USER=sonarqube
-      - SONARQUBE_DATABASE_NAME=sonarqube
-      - SONARQUBE_DATABASE_PASSWORD=sonarqube1234
-      - ALLOW_EMPTY_PASSWORD=yes
-      - SONARQUBE_USERNAME=admin
-      - SONARQUBE_PASSWORD=admin
-      - SONARQUBE_PORT_NUMBER=9000
+      - SONARQUBE_JDBC_USERNAME=sonarqube
+      - SONARQUBE_JDBC_PASSWORD=sonarqube
+      - SONARQUBE_JDBC_URL=jdbc:postgresql://postgresql:5432/sonarqube
     tty: true
 
   postgresql:
     container_name: postgresql
-    image: bitnami/postgresql
+    image: postgres
     volumes: 
-      - 'postgresql_data:/bitnami'
+      - 'postgresql_data:/var/lib/postgresql'
     environment: 
-      - ALLOW_EMPTY_PASSWORD=yes
-      - POSTGRESQL_USER=sonarqube
-      - POSTGRESQL_DATABASE=sonarqube
-      - POSTGRESQL_PASSWORD=sonarqube1234
+      - POSTGRES_USER=sonarqube
+      - POSTGRES_PASSWORD=sonarqube
     tty: true
+
+  # sonar-scanner:
+  #   container_name: sonar-scanner
+  #   image: sonarsource/sonar-scanner-cli
+  #   volumes: 
+  #     - 'sonar_scanner_data:/usr/src'
+  #   depends_on: 
+  #     - sonarqube
+  #   environment: 
+  #     - SONAR_HOST_URL=http://sonarqube:9000
+  #     - SONAR_LOGIN=admin
+  #     - SONAR_PASSWORD=admin
 
 volumes:
   jenkins_data:
@@ -76,3 +82,4 @@ volumes:
   gitlab_runner_config:
   sonarqube_data:
   postgresql_data:
+ # sonar_scanner_data:
