@@ -1,6 +1,6 @@
 ![Docker-compose CI](https://github.com/aahad91/git-jenk-dock/workflows/Docker-compose%20CI/badge.svg?branch=master)
 # git-jenk-dock
-## Docker-based solution for GitLab, GitLab Runner and Jenkins
+## Docker-based solution for GitLab, GitLab Runner, Jenkins and SonarQube
 
 ### Documentation for Installation, Integration and Pipeline Testing
 
@@ -20,10 +20,13 @@ sudo docker exec -it -u root jenkins chmod 777 /var/run/docker.sock
 
 #### URLs
 
-Browse to following Urls to verify successful installation of Gitlab and Jenkins
+Browse to following Urls to verify successful installation of Gitlab, Jenkins and SonarQube.
 
 - **Gitlab:** http://localhost:8081
 - **Jenkins:** http://localhost:8095
+- **SonarQube:** http://localhost:9000
+  - **Login:** admin
+  - **Password:** admin 
 
 #### Gitlab Configuration
 
