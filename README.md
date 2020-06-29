@@ -2,7 +2,7 @@
 # git-jenk-dock
 ## Docker-based solution for GitLab, GitLab Runner, Jenkins and SonarQube
 
-### Documentation for Installation, Integration and Pipeline Testing
+### Documentation for Installation, Integration, Plugins Installation and Pipeline Testing
 
 #### Requirement
 
@@ -76,7 +76,19 @@ sudo docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 
 ![jenkins-homepage](images/jenkins-config-7.png)
 
-### Integration
+#### Installing OWASP Dependency Checker for Jenkins
+
+- Navigate to **_Manage Jenkins_** > **_Manage Plugins_**. Click on ***Available*** tab and search for OWASP Dependency-Check and click on Download now and install after restart.
+
+![](images/jenkins-plugin-install-5.png)
+
+![](images/jenkins-plugin-install-6.png)
+
+- Verify the successfull installation of OWASP Dependency-Check plugin by navigating to **_Manage Jenkins_** > **_Manage Plugins_** and click on ***installed*** tab.
+
+![](images/jenkins-plugin-install-7.png) 
+
+### Integration of Gitlab and Jenkins
 
 Sample [Jenkinsfile](https://github.com/aahad91/git-jenk-dock/blob/master/Jenkinsfile) for pipeline testing.
 
@@ -122,7 +134,7 @@ Sample [Jenkinsfile](https://github.com/aahad91/git-jenk-dock/blob/master/Jenkin
 
 - Verfiy the pipeline is executed successfully.
 
-![pipeline-test](images/jenkins-pipeline-4.png)
+![](images/jenkins-pipeline-4.png)
 
 ### Gitlab Runner Integration
 
@@ -146,5 +158,32 @@ sudo docker exec -it gitlab-runner gitlab-runner register -n --url http://172.22
 
 ![gitlab-runner2](images/gitlab-runner-2.png)
 
-------
+### SonarQube
 
+- Browse ot Url http://localhost:9000 
+
+![](images/sonarqube-1.png)
+
+- Click on login and enter the credentials:
+  - Username: admin
+  - Password: admin
+
+![](images/sonarqube-2.png)
+
+![](images/sonarqube-3.png)
+
+#### Installing OWASP Dependency Checker for SonarQube
+
+- Click on ***Administration*** -> ***Marketplace***. Type dependency-check in search bar and click install. 
+
+![](images/sonarqube-4.png)
+
+- Click on ***Restart Server*** on the top to proceed the installation.
+
+![](images/sonarqube-5.png)
+
+- Verify the successfull installation of OWASP Dependency Checker plugin. Navigate to ***Administration*** > ***Marketplace***, and click on Plugins installed.
+
+![](images/sonarqube-6.png)
+
+ 
