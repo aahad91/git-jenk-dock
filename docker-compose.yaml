@@ -17,15 +17,32 @@ services:
     container_name: jenkins
     image: jenkins/jenkins
     privileged: true
+    environment:
+      - DOCKER_HOST=tcp://docker:2376
+      - DOCKER_CERT_PATH=/certs/client
+      - DOCKER_TLS_VERIFY=1
     ports:
       - "8095:8080"
       - "5000:5000"
       - "25:22"     ##Default set it to "22:22", changed to test with github actions
     volumes:
       - 'jenkins_data:/var/jenkins_home'
-      - '/var/run/docker.sock:/var/run/docker.sock'
-      - '/usr/bin/docker:/usr/bin/docker'     #/usr/local/bin/docker for MacOS and /usr/bin/docker for Ubuntu <- which docker
-      #- '/usr/local/bin/docker:/usr/local/bin/docker'
+      - 'jenkins_cert:/certs/client:ro'
+    tty: true
+
+  jenkins-docker:
+    container_name: jenkins-docker
+    image: docker:dind
+    privileged: true
+    environment:
+      - DOCKER_TLS_CERTDIR=/certs
+    volumes:
+      - 'jenkins_data:/var/jenkins_home'
+      - 'jenkins_cert:/certs/client'
+    networks:
+      default:
+        aliases:
+          - docker
     tty: true
 
   gitlab-runner:
@@ -76,6 +93,7 @@ services:
 
 volumes:
   jenkins_data:
+  jenkins_cert:
   gitlab_data:
   gitlab_config:
   gitlab_logs:
