@@ -17,32 +17,14 @@ services:
     container_name: jenkins
     image: jenkins/jenkins
     privileged: true
-    environment:
-      - DOCKER_HOST=tcp://docker:2376
-      - DOCKER_CERT_PATH=/certs/client
-      - DOCKER_TLS_VERIFY=1
     ports:
       - "8095:8080"
       - "5000:5000"
       - "25:22"     ##Default set it to "22:22", changed to test with github actions
     volumes:
       - 'jenkins_data:/var/jenkins_home'
-      - 'jenkins_cert:/certs/client:ro'
-    tty: true
-
-  jenkins-docker:
-    container_name: jenkins-docker
-    image: docker:dind
-    privileged: true
-    environment:
-      - DOCKER_TLS_CERTDIR=/certs
-    volumes:
-      - 'jenkins_data:/var/jenkins_home'
-      - 'jenkins_cert:/certs/client'
-    networks:
-      default:
-        aliases:
-          - docker
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - '/usr/local/bin/docker:/usr/bin/docker'     #/usr/local/bin/docker for MacOS and /usr/bin/docker for Ubuntu <- which docker
     tty: true
 
   gitlab-runner:
@@ -52,6 +34,7 @@ services:
     volumes: 
       - 'gitlab_runner_config:/etc/gitlab-runner'
       - '/var/run/docker.sock:/var/run/docker.sock'
+      - '/usr/local//bin/docker:/usr/bin/docker'
     tty: true
 
   sonarqube:
@@ -79,25 +62,11 @@ services:
       - POSTGRES_PASSWORD=sonarqube
     tty: true
 
-  # sonar-scanner:
-  #   container_name: sonar-scanner
-  #   image: sonarsource/sonar-scanner-cli
-  #   volumes: 
-  #     - 'sonar_scanner_data:/usr/src'
-  #   depends_on: 
-  #     - sonarqube
-  #   environment: 
-  #     - SONAR_HOST_URL=http://sonarqube:9000
-  #     - SONAR_LOGIN=admin
-  #     - SONAR_PASSWORD=admin
-
 volumes:
   jenkins_data:
-  jenkins_cert:
   gitlab_data:
   gitlab_config:
   gitlab_logs:
   gitlab_runner_config:
   sonarqube_data:
   postgresql_data:
- # sonar_scanner_data:
