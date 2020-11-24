@@ -1,0 +1,236 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab
+  labels:
+    app: git-jenk-dock
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: gitlab
+      labels:
+        app: git-jenk-dock
+    spec:
+      containers:
+        - name: gitlab
+          image: gitlab/gitlab-ce:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http-port
+              containerPort: 80
+          volumeMounts:
+            - mountPath: /var/opt/gitlab
+              name: gitlab-data
+            - mountPath: /var/log/gitlab
+              name: gitlab-logs
+            - mountPath: /etc/gitlab
+              name: gitlab-config
+      restartPolicy: Always
+      volumes:
+        - name: gitlab-data
+          emptyDir: {}
+        - name: gitlab-config
+          emptyDir: {}
+        - name: gitlab-logs
+          emptyDir: {}
+  selector:
+    matchLabels:
+      app: git-jenk-dock
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gitlab-service
+spec:
+  selector:
+    app: git-jenk-dock
+  ports:
+    - port: 8081
+      targetPort: 80
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins
+  labels:
+    app: git-jenk-dock
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: jenkins
+      labels:
+        app: git-jenk-dock
+    spec:
+      containers:
+        - name: jenkins
+          image: jenkins/jenkins
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http-port
+              containerPort: 8080
+          securityContext:
+            allowPrivilegeEscalation: true
+          volumeMounts:
+            - mountPath: /var/jenkins_home
+              name: jenkins-data
+            - mountPath: /var/run/docker.sock
+              name: docker-sock
+            - mountPath: /usr/bin/docker
+              name: dock
+      volumes:
+        - name: jenkins-data
+          emptyDir: {}
+        - name: docker-sock
+          hostPath:
+            path: /var/run/docker.sock
+        - name: dock
+          hostPath:
+            path: /usr/local/bin/docker
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: git-jenk-dock
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-service
+spec:
+  selector:
+    app: git-jenk-dock
+  ports:
+    - port: 8081
+      targetPort: 8080
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab-runner
+  labels:
+    app: git-jenk-dock
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: gitlab-runner
+      labels:
+        app: git-jenk-dock
+    spec:
+      containers:
+        - name: gitlab-runner
+          image: gitlab/gitlab-runner
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: true
+          volumeMounts:
+            - mountPath: /var/run/docker.sock
+              name: docker-sock
+            - mountPath: /usr/bin/docker
+              name: dock
+      restartPolicy: Always
+      volumes:
+        - name: docker-sock
+          hostPath:
+            path: /var/run/docker.sock
+        - name: dock
+          hostPath:
+            path: /usr/bin/docker
+  selector:
+    matchLabels:
+      app: git-jenk-dock
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonarqube
+  labels:
+    app: git-jenk-dock
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: sonarqube
+      labels:
+        app: git-jenk-dock
+    spec:
+      containers:
+        - name: sonarqube
+          image: sonarqube
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http-port
+              containerPort: 9000
+          env:
+            - name: SONARQUBE_JDBC_USERNAME
+              value: "sonarqube"
+            - name: SONARQUBE_JDBC_PASSWORD
+              value: "soanrqube"
+            - name: SONARQUBE_JDBC_URL
+              value: "jdbc:postgresql://postgresql:5432/sonarqube"
+          volumeMounts:
+            - mountPath: /opt/sonarqube
+              name: sonarqube-data
+      volumes:
+        - name: sonarqube-data
+          emptyDir: {}
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: git-jenk-dock
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sonarqube-service
+spec:
+  selector:
+    app: git-jenk-dock
+  ports:
+    - port: 8083
+      targetPort: 9000
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgresql
+  labels:
+    app: git-jenk-dock
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: postgresql
+      labels:
+        app: git-jenk-dock
+    spec:
+      containers:
+        - name: postgresql
+          image: postgres
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http-port
+              containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql
+              name: postgres-data
+          env:
+            - name: POSTGRES_USER
+              value: "sonarqube"
+            - name: POSTGRES_PASSWORD
+              value: sonarqube
+      restartPolicy: Always
+      volumes:
+        - name: postgres-data
+          emptyDir: {}
+  selector:
+    matchLabels:
+      app: git-jenk-dock
+
+
+
+

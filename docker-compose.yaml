@@ -18,7 +18,7 @@ services:
     image: jenkins/jenkins
     privileged: true
     ports:
-      - "8095:8080"
+      - "8082:8080"
       - "5000:5000"
       - "25:22"     ##Default set it to "22:22", changed to test with github actions
     volumes:
@@ -41,7 +41,7 @@ services:
     container_name: sonarqube
     image: sonarqube
     ports: 
-      - "9000:9000"
+      - "8083:9000"
     volumes: 
       - 'sonarqube_data:/opt/sonarqube'
     depends_on: 
